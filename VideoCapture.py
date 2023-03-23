@@ -16,7 +16,7 @@ class VideoCapture:
         while capture.isOpened():
             retval, image = capture.read()
             if not retval:
-                print("can't read image")
+                print("error")
                 break
 
             # image = cv2.flip(image, 1)  # 图像水平翻转
