@@ -12,9 +12,8 @@ def solution_process(img, solution):
     return solution.process(img_RGB)
 
 
-def index2point(img, landmarks, index):
+def index2point(img, landmark):
     img_height, img_width = img.shape[:2]
-    landmark = landmarks[index]
     x = int(landmark.x * img_width)
     y = int(landmark.y * img_height)
     return x, y

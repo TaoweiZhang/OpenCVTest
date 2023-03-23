@@ -23,8 +23,8 @@ class Hands:
             return
 
         self.draw_point_num()
-        self.gesture_digit_recognition()
-        # self.gesture_ok_recognition()
+        # self.gesture_digit_recognition()
+        self.gesture_ok_recognition()
 
     def gesture_ok_recognition(self):
         """
@@ -36,11 +36,11 @@ class Hands:
         finger_status = np.zeros((4,), dtype=np.uint8)
 
         for idx, num in enumerate(fingertip_ls[2:]):
-            top_y = index2point(self.img, landmark, num)[1]
-            mid_y = index2point(self.img, landmark, num - 2)[1]
+            top_y = index2point(self.img, landmark[num])[1]
+            mid_y = index2point(self.img, landmark[num - 2])[1]
             finger_status[idx] = top_y < mid_y
 
-        distance = Utils.get_distance(landmark[fingertip_ls[0]], landmark[fingertip_ls[1]])
+        distance = Utils.get_distance_v2(landmark[fingertip_ls[0]], landmark[fingertip_ls[1]])
         finger_status[3] = distance < 0.025
 
         total = np.sum(finger_status)
@@ -65,13 +65,13 @@ class Hands:
 
             for idx, num in enumerate(fingertip_ls):
                 if idx == 0:
-                    top_x = index2point(self.img, landmarks, num)[0]
-                    mid_x = index2point(self.img, landmarks, num - 1)[0]
+                    top_x = index2point(self.img, landmarks[num])[0]
+                    mid_x = index2point(self.img, landmarks[num - 1])[0]
                     finger_status[idx] = top_x < mid_x if is_right else top_x > mid_x
                     continue
 
-                top_y = index2point(self.img, landmarks, num)[1]
-                mid_y = index2point(self.img, landmarks, num - 2)[1]
+                top_y = index2point(self.img, landmarks[num])[1]
+                mid_y = index2point(self.img, landmarks[num - 2])[1]
                 finger_status[idx] = top_y < mid_y
 
             total = np.sum(finger_status)
@@ -114,5 +114,5 @@ class Hands:
             is_right = hand_type == RIGHT_HAND_TYPE
             landmarks = self.right_hand_landmark.landmark if is_right else self.left_hand_landmark.landmark
             for idx, landmark in enumerate(landmarks):
-                x, y = index2point(self.img, landmarks, idx)
+                x, y = index2point(self.img, landmark)
                 put_text2img(self.img, str(idx), org=(x - 15, y - 5), font_scale=0.4, color=color, thickness=1)

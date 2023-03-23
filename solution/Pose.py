@@ -33,5 +33,5 @@ class Pose:
     def draw_point_num(self):
         self.landmark = self.landmarks.landmark
         for idx, landmark in enumerate(self.landmark):
-            x, y = index2point(self.img, self.landmark, idx)
-            put_text2img(self.img, str(idx), (x - 15, y - 2), font_scale=0.4, thickness=1)
+            x, y = index2point(self.img, landmark)
+            put_text2img(self.img, str(idx), (x - 15, y - 5), font_scale=0.4, thickness=1)

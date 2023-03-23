@@ -25,9 +25,9 @@ class ArmBendGame:
 
     # 手臂弯曲计数
     def arm_bend_count(self):
-        point12 = index2point(self.pose.img, self.pose.landmark, 12)
-        point14 = index2point(self.pose.img, self.pose.landmark, 14)
-        point16 = index2point(self.pose.img, self.pose.landmark, 16)
+        point12 = index2point(self.pose.img, self.pose.landmark[12])
+        point14 = index2point(self.pose.img, self.pose.landmark[14])
+        point16 = index2point(self.pose.img, self.pose.landmark[16])
 
         angle = Utils.get_angle(point12, point14, point16)
         if angle < 15 and self.grade.status == 1:
