@@ -19,7 +19,7 @@ class Hands:
         self.img = img
         self.draw_line()
 
-        if len(self.hand_types) == 0:
+        if self.left_hand_landmark is None or self.right_hand_landmark is None:
             return
 
         self.draw_point_num()
